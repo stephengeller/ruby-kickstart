@@ -9,4 +9,10 @@
 # arithmetic2(-6, -7)  # => -3.5
 
 def arithmetic2(a, b)
+  if a < b
+    num = a.to_f / 2
+  else
+    num = b.to_f / 2
+  end
+  num
 end
