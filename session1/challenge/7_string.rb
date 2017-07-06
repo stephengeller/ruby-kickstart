@@ -6,17 +6,17 @@
 
 def pirates_say_arrrrrrrrr(string)
   counter = 0
-  string.each do |letter|
-    if counter == 1
-      if letter != "r"
-        newstring << letter
-      end
+  newstring = ""
+  string.each_char do |letter|
+    if counter >= 1
+      newstring << letter
+    end
+    if (letter == "r") || (letter == "R")
+      counter = 1
+    else
+      counter = 0
     end
 
-    if letter == "r"
-      counter == 1
-    else
-      counter == 0
-    end
   end
+  newstring
 end
