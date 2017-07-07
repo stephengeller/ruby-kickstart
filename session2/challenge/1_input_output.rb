@@ -9,32 +9,20 @@
 
 def sum_difference_product
   arr = []
-  while inputnumber = gets
-    break if inputnumber == "\n"
-      inputnumber.split.map do |integer|
-      arr << integer.to_i
+  while inputnumber = gets # While input comes in, keep adding to array
+    break if inputnumber == "\n" # Break if 'enter' is pressed
+      inputnumber.split.map do |integer| # Split input based on empty space between inputs
+      arr << integer.to_i # Add integer to array in integer format
       end
    #print arr
   end
 
+  # calculations
   puts arr[0] + arr[1]
   puts arr[0] - arr[1]
   puts arr[0] * arr[1]
-
-
-
-
-  # your code goes here
-  # input1 = gets.to_i
-  # sum = input1 + input2
-  # difference = input1 - input2
-  # product = input1*input2
-  # puts sum.to_s
-  # puts difference.to_s
-  # puts product.to_s
 end
 
 
-# Use arrays, do methods
-
+# Use arrays
 #sum_difference_product

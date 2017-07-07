@@ -20,6 +20,16 @@
 
 def hi_hi_goodbye
   # your code here
+  puts "Please enter a number to repeat:"
+  repeating = true # Keeps loop running
+  while repeating # Starts loop
+    num = gets.chomp # Takes input
+    break if num == "bye" # Breaks if 'bye' is put in
+      num.to_i.times do # Repeats for input number
+        print "hi " # Prints out 'hi'
+      end
+  end
+  puts "goodbye"
 end
 
 
