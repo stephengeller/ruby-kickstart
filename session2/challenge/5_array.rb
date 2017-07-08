@@ -18,8 +18,8 @@ def mod_three(array)
   newarr = []
 
   array.each do |number|
-    if number % 3 != 0
-      newarr << (number % 3)
+    if number % 3 != 0 # if number divided by three = 0...
+      newarr << (number % 3) # Add the remainder of the number divided by three!
     end
   end
   newarr
