@@ -19,21 +19,27 @@
 def prime_chars?(arrayofstrings)
   length = 0
 
-  arrayofstrings.each do |string|
-    break if string.length == 0
-    string.length > 1? length += string.length : length += 1
-  end
+ # old method for getting length of string is below, before looking at solution
+  # arrayofstrings.each do |string|
+  #   # puts "#{string.length} is the length of the string here!"
+  #   break if string.length == 0
+  #   string.length > 1? length += string.length : length += 1
+  # end
 
-  length.times do |number|
-    puts "Number of items in array of strings = #{length}" # test
-    divnum = number + 2
-    puts "number being iterated is #{divnum}" # test
-    if (length % divnum) == 0
+  length = arrayofstrings.join.to_s.length
+
+  2.upto length do |number|
+    if length < 2
       return false
       break
-    else
-      return true
     end
+    divnum = number + 1
+    puts "checking if #{length} is divisible by #{number}. Number var is #{number}" # test
+    if length == number
+      return true
+      break
+    end
+    (length % number) == 0? (return false) : (return true)
   end
 
   return false if arrayofstrings == [] || (length  < 2)
@@ -42,14 +48,18 @@ end
 
 puts "\n4\n"
 puts prime_chars? ['a', 'b', 'cd']
-puts "\n3\n"
-puts prime_chars? ['a', 'b', 'c', 'a', 'b', 'c', 'd']
+puts "\n11\n"
+puts prime_chars? ['a', 'b', 'c', 'adc', 'bsd', 'c', 'd']
 puts "\nempty \n"
 puts prime_chars? []
 puts "\n''\n"
 puts prime_chars? ['']
 puts "\n'a' \n"
 puts prime_chars? ['a']
+puts "\n'ab' \n"
+puts prime_chars? ['ab']
+puts "\n'abc' \n"
+puts prime_chars? ['abc']
 
 
 # divide a number by every number up until itself
