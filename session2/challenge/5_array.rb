@@ -13,3 +13,23 @@
 # mod_three [7]  # => [1]
 #
 # mod_three [0,1,2,3,4,5,6,7] # => [1, 2, 1, 2, 1]
+
+def mod_three(array)
+  newarr = []
+
+  array.each do |number|
+    if number % 3 != 0
+      newarr << (number % 3)
+    end
+  end
+  newarr
+end
+
+
+# take in array
+# iterate through numbers
+# check if remainder of (number % 3) == 0
+# if it isn't, add to array
+# output new array
+
+print mod_three [0,1,2,3,4,5,6,7] # => [1, 2, 1, 2, 1]
