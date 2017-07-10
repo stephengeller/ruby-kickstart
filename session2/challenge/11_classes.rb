@@ -21,52 +21,59 @@
 
 
 
-class BeerSongNew
+class BeerSong
 
   def initialize(bottles)
     if bottles > 99
-      beers = 99
+      bottles = 99
     elsif bottles < 0
-      beers = 0
+      bottles = 0
     end
-    self.beers = beers
+    self.bottles = bottles
   end
 
  attr_accessor :bottles
 
   def setbeers(numberofbottles)
     if numberofbottles > 100
-      bottles = 99
+      #{plural(number)} = 99
     elsif numberofbottles < 0
-      bottles = 0
+      #{plural(number)} = 0
     end
-    bottles
+    #{plural(number)}
   end
 
   def numberstowords(n)
+    #n = bottles
     lowwords = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
     bigwords = ["zero", "Ten", "Twenty", "Thirty", "Fourty", "Fivety", "Sixety", "Seventy", "Eighty", "Ninety"]
+    weirdnums = [11,12,13,14,15,16,17,18,19]
     fullword = []
 
 
     looping = true
 
     while looping
-      fullword = "Eleven"  && looping = false if n == 11
-      fullword = "Twelve" if n == 12
-      fullword = "Thirteen" if n == 13
-      fullword = "Fourteen" if n == 14
-      fullword = "Fifteen" if n == 15
-      fullword = "Sixteen" if n == 16
-      fullword = "Seventeen" if n == 17
-      fullword = "Eighteen" if n == 18
-      fullword = "Nineteen" if n == 19
-      if n.to_s.length == 1
+      if weirdnums.include? n
+        fullword = "Eleven" if n == 11
+        fullword = "Twelve" if n == 12
+        fullword = "Thirteen" if n == 13
+        fullword = "Fourteen" if n == 14
+        fullword = "Fifteen" if n == 15
+        fullword = "Sixteen" if n == 16
+        fullword = "Seventeen" if n == 17
+        fullword = "Eighteen" if n == 18
+        fullword = "Nineteen" if n == 19
+      elsif n.to_s.length == 1
         word = lowwords[n.to_i]
-        puts word.to_s.capitalize!
+        word.to_s.capitalize!
+        return word
       else
         n.to_s.chars.map(&:to_i).each_with_index do |num, index|
-          if (index+1).to_i.odd?
+          if n % 10 == 0
+            fullword << bigwords[num]
+            break
+          elsif (index+1).to_i.odd?
             fullword << bigwords[num]
           else
             fullword << "-#{lowwords[num]}" unless n == 10
@@ -76,35 +83,33 @@ class BeerSongNew
       end
       break
     end
-    puts fullword
+    fullword
   end
 
-  def print_song
-    puts "#{printnum} bottles of beer on the wall,
-           #{printnum} bottles of beer,
-           Take one down, pass it around,
-           #{printnum-1} bottles of beer on the wall."
-  end
-
-  def printnum(number)
-    if number < 10
-      finalnum = "#{numberstowords(number.to_s.capitalize!)}"
-      return finalnum.to_s
+  def plural(n)
+    if n > 1 || n == 0
+      return "bottles"
     else
-      finalnum = "#{numberstowords(number.to_s.capitalize!)}-#{}"
-      return finalnum
+      return "bottle"
     end
   end
 
+  def print_song
+    bottles.downto 1 do |i|
+      print_stanza i
+    end
+  end
+
+  def print_stanza(number)
+      puts "#{numberstowords(number)} #{plural(number)} of beer on the wall,"
+      puts "#{numberstowords(number)} #{plural(number)} of beer,"
+      puts "Take one down, pass it around,"
+      puts "#{numberstowords(number-1)} #{plural(number-1)} of beer on the wall."
+   #   puts "...\n" if number > 1
+  end
 
 end
 
-new = BeerSongNew.new(1000)
+newsong = BeerSong.new(99)
 
-puts new.bottles
-
-puts new.numberstowords(7)
-
-puts new.printnum(3)
-
-puts new.print_song
+newsong.print_song
