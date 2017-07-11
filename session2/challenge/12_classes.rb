@@ -1,7 +1,7 @@
 # Define a class called Fraction
 # This class is used to represent a ratio of two integers
-# Include setter methods called numerator and denominator that allow the user to change these values
-# Also include a method called to_f that returns the ratio as a float (a number with a decimal point, such as 10.3)
+## Include setter methods called numerator and denominator that allow the user to change these values
+## Also include a method called to_f that returns the ratio as a float (a number with a decimal point, such as 10.3)
 # Also include a method called lowest, which returns a new Fraction, where the numerator and denominator
 # are reduced to lowest terms (ie 20/60 becomes 1/3)
 # This will require finding the greatest common divisor for the numerator and denominator
@@ -21,8 +21,42 @@
 # f.to_f               # => 0.5
 
 class Fraction
+
+  def initialize(numerator, denominator)
+    @numerator = numerator
+    @denominator = denominator
+  end
+
+  attr_accessor('numerator', 'denominator')
+
   def gcd(a,b)
     return a if b == 0
     gcd(b, a%b)
   end
+
+
+  def to_f
+    numerator.to_f / denominator
+  end
+
+  def lowest
+    divnum = gcd(numerator, denominator)
+    Fraction.new(numerator/divnum, denominator/divnum)
+  end
+
+  def to_s
+    "#{numerator}/#{denominator}"
+  end
+
+
 end
+
+f = Fraction.new 20, 60
+
+f.numerator = 30
+puts f.to_f
+f.numerator = 40
+f.denominator = 120
+puts f.to_f
+puts f.gcd(100,150)
+puts f.lowest
