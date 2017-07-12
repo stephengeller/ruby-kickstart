@@ -76,15 +76,11 @@ class User
     self.blogs = []
   end
 
-  def add_blog(date, text)
-    datearr << date
-    textarr << text
-    puts date
-    puts text
-  end
-
-  def blogs
-    return textarr
+  def add_blog(number, text)
+    added_to_blog = Blog.new(date, self, text)
+    blogs << added_to_blog
+    self.blogs = blogs.sort_by {|blog| blog.date }.reverse
+    added_to_blog
   end
 
 end
@@ -93,6 +89,8 @@ stephen = User.new "Stephen"
 
 stephen.add_blog(12, "blah blah blah")
 
-puts stephen.blogs
+puts stephen.blogslist
 
-puts stephen.add_blog 24, "more blah"
+stephen.add_blog 24, "more blah"
+
+print stephen.blogslist
