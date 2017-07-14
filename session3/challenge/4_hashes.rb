@@ -5,3 +5,15 @@
 # There will be no punctuation in the strings.
 #
 # first_pos "The dog and the cat and the cow" # => {"The" => 0, "dog" => 1, "and" => 2, "the" => 3, "cat" => 4, "cow" => 7}
+
+def first_pos(string)
+  pos = Hash.new(0)                                   # Create empty hash, default value 0
+  string.split.to_a.each_with_index do |name, index|  # Convert string to array per word, then iterate through words with associated index
+    pos[name] = index if !(pos.key?(name))       # If key doesn't already exist, add the key with the current index
+  end
+  pos
+end
+
+
+
+first_pos "The dog and the cat and the cow" # => {"The" => 0, "dog" => 1, "and" => 2, "the" => 3, "cat" => 4, "cow" => 7}
