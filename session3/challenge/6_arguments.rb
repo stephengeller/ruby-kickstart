@@ -17,3 +17,19 @@
 # match_maker true,  true,  true, true, nil     # => [false, true]
 # match_maker true,  true,  true, 0, nil        # => [false, true]
 
+
+def match_maker(opposites, *elements)
+  finalarr = []                                   # Creates empty array to input answers
+
+  elements.each_slice 2 do |first,last|           # Iterates through elements after first, uses 2 at a time and looks at first and last input
+    first  = !!first                              # Don't understand this
+    last   = !!last                               # Don't understand the need for this either
+    result = if opposites                         # Hmm...
+               first != last
+             else
+               first == last
+             end
+    finalarr << result
+  end
+  finalarr
+end
