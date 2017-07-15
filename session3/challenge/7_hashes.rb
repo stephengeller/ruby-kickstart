@@ -26,33 +26,42 @@
 
 class HTMLTag
   FONTS = {
-    :serif      => '"Times New Roman", "Georgia"',
-    :sans_serif => '"Arial", "Verdana"',
-    :monospace  => '"Courier New", "Lucida Console"'
+      :serif      => '"Times New Roman", "Georgia"',            # Types of font used in the serif, sans serif and monospace symbols
+      :sans_serif => '"Arial", "Verdana"',
+      :monospace  => '"Courier New", "Lucida Console"' ,
   }
 
-  attr_accessor :name, :innerHTML, :options
+  COLORS = {
+      :red   => '#FF0000',                                      # Three types of colors
+      :green => '#00FF00',
+      :blue  => '#0000FF',
+  }
+
+  attr_accessor :name, :innerHTML, :font, :color, :multiline    # Provides getter and setter methods for these
 
   # options: :multiline should be true or false
-  def initialize(name, innerHTML, options)
-    @name, @innerHTML, @options = name, innerHTML, options
-  end
-
-  def font
-    font = options[:font]  #  one of :serif, :sans_serif, or :monospace
-    FONTS[font]
+  def initialize(name, innerHTML, options=Hash.new)             # Requires the name and innerHTML tag, then provides open list of options to be set in the hash, but doesn't need them
+    @name, @innerHTML = name, innerHTML
+    self.font      = FONTS[options[:font]]                      # If ':font' is present in the options, it sets the font to that (ie :font => :serif)
+    self.color     = COLORS[options[:color]]                    # Same for ':color' (American spellings...)
+    self.multiline = options.fetch :multiline, false            # Defaults multiline to false, but can be set to true if included when initializing?
   end
 
   def style
-    return nil unless options[:font]
-    "style='font-family:#{font}'"
+    return nil unless font || color                             # Don't return anything unless either font or colour is included in the instance of the class
+    to_return = "style='"                                       # Beginning of string
+    to_return << "font-family:#{font};" if font                 # Add to string, if font exists
+    to_return << "color:#{color};"      if color                # Add to string, if colo[u]r exists
+    to_return << "'"                                            # Close string
+    to_return                                                   # Return string
   end
 
   def to_s
-    line_end = if options[:multiline] then "\n" else "" end
-    "<#{name} #{style}>#{line_end}"  \
-    "#{innerHTML.chomp}#{line_end}"  \
+    line_end = ""                                               # Start string
+    line_end = "\n" if multiline # remember, if options[:multiline] doesn't exist, it will return nil, and nil is false
+    "<#{name} #{style}>#{line_end}"   \                         # Writing the name, style and innerHTML in an HTML format
+      "#{innerHTML.chomp}#{line_end}" \
     "</#{name}>\n"
   end
-
 end
+
