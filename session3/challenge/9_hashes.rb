@@ -28,5 +28,36 @@
 # shared [1,2,:c], ['a','b',:c]      # => [{1=>[true, nil], 2=>[true, nil], :c=>[true, true], "a"=>[nil, true], "b"=>[nil, true]}, [:c]]
 # shared [1,2,3], [3,2,1]            # => [{1=>[true, true], 2=>[true, true], 3=>[true, true]}, [1, 2, 3]]
 
-def shared(a, b)
+
+
+# Take in array
+# Iterate through array, and put each value into hash table
+
+def shared(array_1, array_2)
+  to_return = []
+  shared_nums = []
+  hash1 = array_to_hash array_1
+  hash2 = array_to_hash array_2
+  all_nums = Hash.new
+  numbers_to_check = array_1
+  array_2.each {|n| numbers_to_check << n unless array_1.include? n}
+
+  # So now we have a list of all numbers (numbers_to_check), and a function to put the numbers that are present in both arrays
+
+  numbers_to_check.each do |number|
+    if hash1.include? number then all_nums[number] = [true] else all_nums[number] = [nil] end   # Create a key/value for all_nums, adding either true or nil in array format
+    if hash2.include? number then all_nums[number] << true  else all_nums[number] << nil  end   # Appends a second value to each key, based on their presence
+  end
+
+  hash1.each {|key, value| shared_nums << key if hash2.include?(key)}                                # Creates an array of the numbers that both arrays share, to be later added to final array
+
+  to_return << all_nums << shared_nums                                                               # Adds the hash (with true/nil values) and shared numbers in correct order to final array
+  to_return
 end
+
+def array_to_hash(array)
+  hash = Hash.new(0)
+  array.each_with_index {|number, index| hash[number] = index}
+  hash
+end
+
